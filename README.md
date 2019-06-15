@@ -80,3 +80,7 @@ node_modules/.bin/et et -w
 # 指定目录
 node_modules/.bin/et et -o src/theme
 ```
+
+[MySql 下载地址](https://dev.mysql.com/downloads/file/?id=485812)
+
+密码：Ghwn7nGaUw.M
