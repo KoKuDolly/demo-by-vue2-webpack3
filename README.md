@@ -84,3 +84,58 @@ node_modules/.bin/et et -o src/theme
 [MySql 下载地址](https://dev.mysql.com/downloads/file/?id=485812)
 
 密码：Ghwn7nGaUw.M
+
+vue 创建组件的方式
+
+```html
+<html>
+  <div id="app">
+    <mycom1></mycom1>
+  </div>
+  <template id="tmpl">
+    <h1>这是私有的 login 组件1</h1>
+  </template>
+  <script>
+    // 方式1，全局注册组件，可以在任何vue实例中调用，不需要在每个vue实例中进行注册，公用的组件，vue.use()做了这件事
+    Vue.component('mycom1', Vue.extend({
+      template: '<h3>这是使用 Vue.extend 创建的组件</h3>'
+    }))
+
+    var vm = new Vue({
+      el: '#app'
+    })
+  </script>
+
+  <div id="app2">
+    <login></login>
+  </div>
+
+  <template id="tmpl2">
+    <h1>这是私有的 login 组件2</h1>
+  </template>
+
+  <script>
+    // 方式2，局部组件注册，只属于当前vue实例
+    var vm2 = new Vue({
+      el: '#app2',
+      components: {
+        login: {
+          template: '#tmpl2'
+        }
+      }
+    })
+  </script>
+</html>
+```
+
+下面每一项的意思
+
+```js
+new Vue({
+  router,
+  i18n,
+  components: { App },
+  template: '<App/>'
+  // render: h => h(App)
+}).$mount('#app')
+```
