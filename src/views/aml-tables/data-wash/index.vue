@@ -15,11 +15,11 @@
           >
             <template slot-scope="scope">
               <el-select
-                v-model="portTableOneData[index][item.key]"
-                @change="handleDeletionAttrSelect(value, scope)"
+                v-model="portTableOneData[scope.$index][item.key]"
+                @change="handleDeletionAttrSelect(portTableOneData[scope.$index][item.key], scope)"
               >
                 <el-option
-                  v-for="(_item, _index) in item"
+                  v-for="(_item, _index) in scope.row[item.key]"
                   :key="_index"
                   :label="_item.cnName"
                   :value="_item.value"
@@ -28,12 +28,51 @@
             </template>
           </el-table-column>
         </template>
+        <template v-else-if="item.key === 'handle_func'">
+          <el-table-column
+            :key="index"
+            :prop="item.key"
+            :label="item.title"
+          >
+            <template slot-scope="scope">
+              <el-select
+                v-model="portTableOneData[scope.$index][item.key]"
+                @change="handleDeletionAttrSelect(portTableOneData[scope.$index][item.key], scope)"
+              >
+                <el-option
+                  v-for="(_item, _index) in scope.row[item.key]"
+                  :key="_index"
+                  :label="_item.cnName"
+                  :value="_item.value"
+                ></el-option>
+              </el-select>
+            </template>
+          </el-table-column>
+        </template>
+        <template v-else-if="item.key === 'result'">
+          <el-table-column
+            :key="index"
+            :prop="item.key"
+            :label="item.title"
+          >
+            <template slot-scope="scope">
+              <el-input
+                v-model="portTableOneData[scope.$index][item.key]"
+                @blur="handleDeletionAttrSelect(portTableOneData[scope.$index][item.key], scope)"
+              />
+            </template>
+          </el-table-column>
+        </template>
         <template v-else>
           <el-table-column
             :key="index"
             :prop="item.key"
             :label="item.title"
-          ></el-table-column>
+          >
+            <!-- <template slot-scope="scope">
+
+            </template> -->
+          </el-table-column>
         </template>
       </template>
     </el-table>
@@ -75,20 +114,47 @@ export default {
               value: '10'
             },
             {
-              cnName: '缺失属性1',
-              enName: 'delation_attr_1',
-              value: '10'
+              cnName: '缺失属性2',
+              enName: 'delation_attr_2',
+              value: '11'
             }
           ],
           handle_func: [
             {
-              func_name: '替换',
-              en_func_name: 'instead',
+              cnName: '替换',
+              enName: 'instead',
               value: 0
             },
             {
-              func_name: '舍弃',
-              en_func_name: 'throw_it',
+              cnName: '舍弃',
+              enName: 'throw_it',
+              value: 1
+            }
+          ],
+          result: 10
+        },
+        {
+          deletion_attr: [
+            {
+              cnName: '缺失属性1',
+              enName: 'delation_attr_1',
+              value: '10'
+            },
+            {
+              cnName: '缺失属性2',
+              enName: 'delation_attr_2',
+              value: '11'
+            }
+          ],
+          handle_func: [
+            {
+              cnName: '替换',
+              enName: 'instead',
+              value: 0
+            },
+            {
+              cnName: '舍弃',
+              enName: 'throw_it',
               value: 1
             }
           ],
@@ -122,8 +188,8 @@ export default {
       })
       console.log(this.portTableOneData)
     },
-    handleDeletionAttrSelect (value, row) {
-      console.log(value, row)
+    handleDeletionAttrSelect (row, scope) {
+      console.log(row, scope, this.portTableOneData)
     }
   }
 }
