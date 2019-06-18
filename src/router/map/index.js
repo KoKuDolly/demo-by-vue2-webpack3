@@ -41,7 +41,8 @@ export default [
       {
         path: '404',
         name: '404',
-        component: NotFound
+        // 命名视图，加 s
+        components: NotFound
       },
       {
         path: '*',
