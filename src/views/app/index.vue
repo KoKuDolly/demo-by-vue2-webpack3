@@ -39,6 +39,7 @@ export default {
     line-height: 60px;
   }
   .el-main {
+    min-height: 500px;
     background-color: #e9eef3;
     color: #333;
     text-align: center;
