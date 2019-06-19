@@ -11,7 +11,7 @@
           <el-table-column
             :key="index"
             :prop="item.key"
-            :label="item.title"
+            :label="$t('dataWash.deletion_attr')"
           >
             <template slot-scope="scope">
               <el-select
@@ -32,7 +32,7 @@
           <el-table-column
             :key="index"
             :prop="item.key"
-            :label="item.title"
+            :label="$t('dataWash.handle_func')"
           >
             <template slot-scope="scope">
               <el-select
@@ -53,7 +53,7 @@
           <el-table-column
             :key="index"
             :prop="item.key"
-            :label="item.title"
+            :label="$t('dataWash.result')"
           >
             <template slot-scope="scope">
               <el-input
@@ -67,7 +67,7 @@
           <el-table-column
             :key="index"
             :prop="item.key"
-            :label="item.title"
+            :label="$t('dataWash.handle_coloumns')"
           >
             <!-- <template slot-scope="scope">
 

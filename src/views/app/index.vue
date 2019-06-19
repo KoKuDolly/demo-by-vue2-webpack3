@@ -3,7 +3,15 @@
     <el-container>
       <ElSider></ElSider>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <el-dropdown @command="changeLanguage">
+            <span class="el-dropdown-link">切换语言<i class="el-icon-arrow-down el-icon--right"></i></span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="en">英文</el-dropdown-item>
+              <el-dropdown-item command="zh">中文</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-header>
         <el-main>
           <router-view/>
         </el-main>
@@ -26,6 +34,11 @@ export default {
     ElSider
     // ElHeader,
     // ElBody
+  },
+  methods: {
+    changeLanguage (command) {
+      this.$i18n.locale = command
+    }
   }
 }
 </script>

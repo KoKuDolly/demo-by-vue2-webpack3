@@ -1,5 +1,7 @@
 <template>
-  <el-header>Header</el-header>
+  <el-header>
+    Header
+  </el-header>
 </template>
 <style lang="scss">
   .el-header,
