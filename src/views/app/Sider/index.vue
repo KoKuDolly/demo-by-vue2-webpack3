@@ -44,7 +44,7 @@ export default {
     Menu, Submenu, MenuItem, MenuItemGroup, DropdownMenu
   },
   mounted () {
-    console.log(routerMap)
+    // console.log(routerMap)
   },
   watch: {
     routerMap () {}

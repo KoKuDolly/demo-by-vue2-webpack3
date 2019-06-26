@@ -79,6 +79,7 @@
   </div>
 </template>
 <script>
+import { sapRepeat } from '../data/data'
 export default {
   name: 'dataWash',
   mounted () {
@@ -166,6 +167,31 @@ export default {
   methods: {
     init () {
       this.initPortTableOneData()
+      this.handleTransData()
+    },
+    handleTransData () {
+      // sapRepeat 这个是返回数据中去重的那个值，其他类似吧
+      // 深拷贝
+      const source = Object.assign({}, sapRepeat)
+      // 构建想要的数据结构，空架子
+      let arr = []
+      Object.keys(source).forEach((attr, index) => {
+        if (index === 0) {
+          let value = source[attr].split(',')
+          value.forEach((v, i) => {
+            arr.push({
+              index_row: i
+            })
+          })
+        }
+      })
+      // 往里面塞值
+      Object.keys(source).forEach((attr, index) => {
+        let value = source[attr].split(',')
+        value.forEach((v, i) => {
+          arr[i] = Object.assign({}, arr[i], { [attr]: v })
+        })
+      })
     },
     initPortTableOneData () {
       this.portTableOneData = this.tableData.map((ov, oi) => {
@@ -186,7 +212,7 @@ export default {
           return obj
         }
       })
-      console.log(this.portTableOneData)
+      // console.log(this.portTableOneData)
     },
     handleDeletionAttrSelect (row, scope) {
       console.log(row, scope, this.portTableOneData)
