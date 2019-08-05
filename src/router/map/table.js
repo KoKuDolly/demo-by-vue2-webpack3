@@ -1,5 +1,6 @@
 const amlTable = () => import('@/views/aml-tables/')
-const dataWash = () => import('@/views/aml-tables/data-wash/')
+const tableBinded = () => import('@/views/aml-tables/data-wash/')
+const tableNoBind = () => import('@/views/aml-tables/data-wash/index_backup.vue')
 
 export default {
   path: 'aml-tables',
@@ -10,12 +11,21 @@ export default {
   component: amlTable,
   children: [
     {
-      path: 'dataWash',
-      name: 'dataWash',
+      path: 'tableBinded',
+      name: 'tableBinded',
       meta: {
-        title: '数据清洗'
+        title: '双向绑定数据表格'
       },
-      component: dataWash,
+      component: tableBinded,
+      children: []
+    },
+    {
+      path: 'tableNoBind',
+      name: 'tableNoBind',
+      meta: {
+        title: '非双向绑定数据表格'
+      },
+      component: tableNoBind,
       children: []
     }
   ]

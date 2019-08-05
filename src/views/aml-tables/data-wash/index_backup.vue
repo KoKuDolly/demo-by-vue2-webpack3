@@ -2,7 +2,8 @@
   <div>
     <el-table
       :data="tableData"
-      stripe
+      :stripe="true"
+      :border="true"
       max-height="200"
     >
       <template v-for="(item, index) in tableColumns">
@@ -14,11 +15,11 @@
           >
             <template slot-scope="scope">
               <el-select
-                v-model="scope.row[item.key]"
-                @change="handleDeletionAttrSelect(scope)"
+                v-model="portTableOneData[scope.$index][item.key]"
+                @change="handleDeletionAttrSelect(portTableOneData[scope.$index][item.key], scope)"
               >
                 <el-option
-                  v-for="(_item, _index) in deletion_attr"
+                  v-for="(_item, _index) in scope.row[item.key]"
                   :key="_index"
                   :label="_item.cnName"
                   :value="_item.value"
@@ -35,11 +36,11 @@
           >
             <template slot-scope="scope">
               <el-select
-                v-model="scope.row[item.key]"
-                @change="handleDeletionAttrSelect(scope)"
+                v-model="portTableOneData[scope.$index][item.key]"
+                @change="handleDeletionAttrSelect(portTableOneData[scope.$index][item.key], scope)"
               >
                 <el-option
-                  v-for="(_item, _index) in handle_func"
+                  v-for="(_item, _index) in scope.row[item.key]"
                   :key="_index"
                   :label="_item.cnName"
                   :value="_item.value"
@@ -56,8 +57,8 @@
           >
             <template slot-scope="scope">
               <el-input
-                v-model="scope.row[item.key]"
-                @blur="handleDeletionAttrSelect(scope)"
+                v-model="portTableOneData[scope.$index][item.key]"
+                @blur="handleDeletionAttrSelect(portTableOneData[scope.$index][item.key], scope)"
               />
             </template>
           </el-table-column>
@@ -68,9 +69,6 @@
             :prop="item.key"
             :label="$t('dataWash.handle_coloumns')"
           >
-            <template slot="header" slot-scope="scope">
-              <el-button icon="el-icon-plus" type="text" @click="handleDialog"></el-button>
-            </template>
             <!-- <template slot-scope="scope">
 
             </template> -->
@@ -78,31 +76,6 @@
         </template>
       </template>
     </el-table>
-    <el-dialog
-      :visible.sync="dialogVisible"
-    >
-      <el-table
-        stripe
-        :data="dialogTableData"
-      >
-        <el-table-column
-          prop="列1"
-          label="列1"
-        ></el-table-column>
-        <el-table-column
-          prop="列1"
-          label="列1"
-        ></el-table-column>
-        <el-table-column
-          prop="列1"
-          label="列1"
-        ></el-table-column>
-      </el-table>
-      <template slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </template>
-    </el-dialog>
   </div>
 </template>
 <script>
@@ -114,8 +87,6 @@ export default {
   },
   data () {
     return {
-      dialogVisible: false,
-      dialogTableData: [],
       portTableOneData: [],
       tableColumns: [
         {
@@ -135,39 +106,59 @@ export default {
           title: '+'
         }
       ],
-      deletion_attr: [
-        {
-          cnName: '缺失属性1',
-          enName: 'delation_attr_1',
-          value: '10'
-        },
-        {
-          cnName: '缺失属性2',
-          enName: 'delation_attr_2',
-          value: '11'
-        }
-      ],
-      handle_func: [
-        {
-          cnName: '替换',
-          enName: 'instead',
-          value: 0
-        },
-        {
-          cnName: '舍弃',
-          enName: 'throw_it',
-          value: 1
-        }
-      ],
       tableData: [
         {
-          deletion_attr: '',
-          handle_func: '',
+          deletion_attr: [
+            {
+              cnName: '缺失属性1',
+              enName: 'delation_attr_1',
+              value: '10'
+            },
+            {
+              cnName: '缺失属性2',
+              enName: 'delation_attr_2',
+              value: '11'
+            }
+          ],
+          handle_func: [
+            {
+              cnName: '替换',
+              enName: 'instead',
+              value: 0
+            },
+            {
+              cnName: '舍弃',
+              enName: 'throw_it',
+              value: 1
+            }
+          ],
           result: 10
         },
         {
-          deletion_attr: '',
-          handle_func: '',
+          deletion_attr: [
+            {
+              cnName: '缺失属性1',
+              enName: 'delation_attr_1',
+              value: '10'
+            },
+            {
+              cnName: '缺失属性2',
+              enName: 'delation_attr_2',
+              value: '11'
+            }
+          ],
+          handle_func: [
+            {
+              cnName: '替换',
+              enName: 'instead',
+              value: 0
+            },
+            {
+              cnName: '舍弃',
+              enName: 'throw_it',
+              value: 1
+            }
+          ],
           result: 10
         }
       ]
@@ -223,12 +214,9 @@ export default {
       })
       // console.log(this.portTableOneData)
     },
-    handleDeletionAttrSelect (scope) {
-      // console.log(row, scope, this.portTableOneData)
-      console.log(scope, this.tableData)
-    },
-    handleDialog () {
-      this.dialogVisible = true
+    handleDeletionAttrSelect (row, scope) {
+      console.log(row, scope, this.portTableOneData)
+      console.log(this.tableData)
     }
   }
 }
